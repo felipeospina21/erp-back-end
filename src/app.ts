@@ -16,9 +16,9 @@ app.use(bodyParser.json());
 app.use(xss());
 
 // routes
-app.use('/products', productRouter);
-app.use('/clients', clientRouter);
-app.use('/sales', saleRouter);
+app.use('/api/products', productRouter);
+app.use('/api/clients', clientRouter);
+app.use('/api/sales', saleRouter);
 
 app.get('/', (req: Request, res: Response) => {
   res.send('Express + TypeScript Server');
