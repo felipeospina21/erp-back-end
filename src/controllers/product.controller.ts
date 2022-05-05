@@ -5,6 +5,8 @@ import { controllerResponse } from '../utils';
 
 export function createProduct(req: Request, res: Response) {
   const payload: IProduct = req.body;
+  console.log(req.file?.buffer)
+  payload.image = req.file?.buffer
   const newProduct = createNewElement(Product, payload);
   controllerResponse(newProduct, 201, 400, res);
 }
@@ -31,4 +33,3 @@ export function updateProductById(req: Request, res: Response) {
   const updatedProduct = updateById(Product, id, update);
   controllerResponse(updatedProduct, 200, 400, res);
 }
-
