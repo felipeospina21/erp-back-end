@@ -1,4 +1,4 @@
-import { Router } from 'express';
+import { Router} from 'express';
 import {
   createProduct,
   getProductById,
@@ -6,12 +6,14 @@ import {
   deleteProductById,
   updateProductById,
 } from '../controllers';
-import { saveImage, errorHandler } from '../middlewares';
+import { formData } from '../middlewares';
+
 
 export const productRouter: Router = Router();
 
 productRouter.get('/', getProducts);
 productRouter.get('/:id', getProductById);
-productRouter.post('/', saveImage.single('image'), createProduct, errorHandler);
+productRouter.post('/', formData, createProduct);
 productRouter.delete('/', deleteProductById);
-productRouter.put('/', updateProductById);
+productRouter.put('/', formData, updateProductById);
+

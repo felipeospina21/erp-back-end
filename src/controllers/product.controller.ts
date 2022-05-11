@@ -5,8 +5,6 @@ import { controllerResponse } from '../utils';
 
 export function createProduct(req: Request, res: Response) {
   const payload: IProduct = req.body;
-  console.log(req.file?.buffer)
-  payload.image = req.file?.buffer
   const newProduct = createNewElement(Product, payload);
   controllerResponse(newProduct, 201, 400, res);
 }
@@ -29,7 +27,8 @@ export function deleteProductById(req: Request, res: Response) {
 }
 
 export function updateProductById(req: Request, res: Response) {
-  const { _id: id, update } = req.body;
+  const { _id: id, alias, name, price, stock } = req.body;
+  const update = {alias, name, price: Number(price), stock: Number(stock)}
   const updatedProduct = updateById(Product, id, update);
   controllerResponse(updatedProduct, 200, 400, res);
 }

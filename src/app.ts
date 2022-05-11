@@ -5,6 +5,7 @@ import bodyParser from 'body-parser';
 import xss from 'xss-clean';
 import { productRouter, clientRouter, saleRouter } from './routes';
 
+
 export const app: Express = express();
 
 // middlewares

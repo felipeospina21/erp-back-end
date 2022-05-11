@@ -5,7 +5,7 @@ export interface IProduct {
   name: string;
   price: number;
   stock: number;
-  image?: Buffer;
+  image?: string;
 }
 
 const productSchema = new Schema<IProduct>(
@@ -14,7 +14,7 @@ const productSchema = new Schema<IProduct>(
     name: { type: String, required: true },
     price: { type: Number, required: true },
     stock: { type: Number, required: true },
-    image: { type: Buffer },
+    image: { type: String },
   },
   {
     timestamps: true,
