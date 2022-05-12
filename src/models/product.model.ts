@@ -5,7 +5,7 @@ export interface IProduct {
   name: string;
   price: number;
   stock: number;
-  subtotal?: number;
+  image?: string;
 }
 
 const productSchema = new Schema<IProduct>(
@@ -14,7 +14,7 @@ const productSchema = new Schema<IProduct>(
     name: { type: String, required: true },
     price: { type: Number, required: true },
     stock: { type: Number, required: true },
-    subtotal: { type: Number },
+    image: { type: String },
   },
   {
     timestamps: true,

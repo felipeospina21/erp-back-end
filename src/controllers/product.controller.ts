@@ -27,8 +27,15 @@ export function deleteProductById(req: Request, res: Response) {
 }
 
 export function updateProductById(req: Request, res: Response) {
-  const { _id: id, update } = req.body;
+  const { _id: id, alias, name, price, stock } = req.body;
+  const update = {alias, name, price: Number(price), stock: Number(stock)}
   const updatedProduct = updateById(Product, id, update);
   controllerResponse(updatedProduct, 200, 400, res);
 }
 
+export function updateProductStock(req: Request, res: Response) {
+  const { _id: id, stock } = req.body;
+  const update = { stock: Number(stock)}
+  const updatedProduct = updateById(Product, id, update);
+  controllerResponse(updatedProduct, 200, 400, res);
+}
