@@ -27,7 +27,7 @@ export function formData(req: Request, res: Response, next: NextFunction) {
     req.body[key] = value;
   });
 
-  bus.on('file', (key, file, __filename) => {
+  bus.on('file', (key, file) => {
     uploadingImage = true;
     uploadingCount++;
 
