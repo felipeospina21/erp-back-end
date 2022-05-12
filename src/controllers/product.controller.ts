@@ -32,3 +32,10 @@ export function updateProductById(req: Request, res: Response) {
   const updatedProduct = updateById(Product, id, update);
   controllerResponse(updatedProduct, 200, 400, res);
 }
+
+export function updateProductStock(req: Request, res: Response) {
+  const { _id: id, stock } = req.body;
+  const update = { stock: Number(stock)}
+  const updatedProduct = updateById(Product, id, update);
+  controllerResponse(updatedProduct, 200, 400, res);
+}
