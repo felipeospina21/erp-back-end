@@ -1,7 +1,7 @@
 import { Schema, model } from 'mongoose';
 import { IClient } from './client.model';
 import { IProduct } from './product.model';
-
+import mongooseAutoPopulate from 'mongoose-autopopulate';
 export interface IOrderedProduct {
   item: IProduct;
   discount: number;
@@ -27,7 +27,7 @@ const orderedProductsSchema = new Schema<IOrderedProduct>({
   subtotal: { type: Number, required: true },
 });
 
-orderedProductsSchema.plugin(require('mongoose-autopopulate'));
+orderedProductsSchema.plugin(mongooseAutoPopulate);
 
 const saleSchema = new Schema<ISale>(
   {
@@ -67,6 +67,6 @@ const saleSchema = new Schema<ISale>(
   }
 );
 
-saleSchema.plugin(require('mongoose-autopopulate'));
+saleSchema.plugin(mongooseAutoPopulate);
 
 export const Sale = model<ISale>('Sale', saleSchema);

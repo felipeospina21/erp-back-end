@@ -1,9 +1,9 @@
-import { Client, IClient } from '../models'
+import { Client, IClient } from '../models';
 import { Request, Response } from 'express';
-import { createNewElement, deletetById, findAll, findById, updateById } from '../services';
+import { createNewElement, deletetById, findAll, findById, updateById } from '../services/mongoose';
 import { controllerResponse } from '../utils';
 
-export function createClient(req:Request, res:Response) {
+export function createClient(req: Request, res: Response) {
   const payload: IClient = req.body;
   const newClient = createNewElement(Client, payload);
   controllerResponse(newClient, 201, 400, res);
