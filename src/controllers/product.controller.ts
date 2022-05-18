@@ -1,6 +1,6 @@
 import { Product, IProduct } from '../models';
 import { Request, Response } from 'express';
-import { createNewElement, deletetById, findAll, findById, updateById } from '../services';
+import { createNewElement, deletetById, findAll, findById, updateById } from '../services/mongoose';
 import { controllerResponse } from '../utils';
 
 export function createProduct(req: Request, res: Response) {
@@ -28,14 +28,14 @@ export function deleteProductById(req: Request, res: Response) {
 
 export function updateProductById(req: Request, res: Response) {
   const { _id: id, alias, name, price, stock } = req.body;
-  const update = {alias, name, price: Number(price), stock: Number(stock)}
+  const update = { alias, name, price: Number(price), stock: Number(stock) };
   const updatedProduct = updateById(Product, id, update);
   controllerResponse(updatedProduct, 200, 400, res);
 }
 
 export function updateProductStock(req: Request, res: Response) {
   const { _id: id, stock } = req.body;
-  const update = { stock: Number(stock)}
+  const update = { stock: Number(stock) };
   const updatedProduct = updateById(Product, id, update);
   controllerResponse(updatedProduct, 200, 400, res);
 }

@@ -27,6 +27,7 @@
     "morgan": "^1.10.0",
     "ts-jest": "^27.1.4",
     "ts-node": "^10.7.0",
+    "winston": "^3.7.2",
     "xss-clean": "^0.1.1"
   },
   "devDependencies": {
