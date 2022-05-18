@@ -1,6 +1,6 @@
 import { Sale, ISale } from '../models';
 import { Request, Response } from 'express';
-import { createNewElement, deletetById, findAll, findById } from '../services';
+import { createNewElement, deletetById, findAll, findById } from '../services/mongoose';
 import { controllerResponse } from '../utils';
 
 export function createSale(req: Request, res: Response) {
@@ -25,4 +25,3 @@ export function deleteSaleById(req: Request, res: Response) {
   const deletedSale = deletetById(Sale, id);
   controllerResponse(deletedSale, 200, 400, res);
 }
-
