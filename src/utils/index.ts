@@ -1,3 +1,3 @@
 export * from './controllerResponse';
-export * from './passwordCheck';
+export * from './generateToken';
 export { default } from './logger';
