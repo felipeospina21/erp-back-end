@@ -5,7 +5,7 @@ import express, { Express } from 'express';
 import morgan from 'morgan';
 import xss from 'xss-clean';
 import { isAuthenticated } from './middlewares';
-import { clientRouter, productRouter, saleRouter, userRouter } from './routes';
+import { clientRouter, productRouter, saleRouter, userRouter, invoiceRouter } from './routes';
 
 export const app: Express = express();
 
@@ -28,4 +28,5 @@ app.use(xss());
 app.use('/api/products', isAuthenticated, productRouter);
 app.use('/api/clients', isAuthenticated, clientRouter);
 app.use('/api/sales', isAuthenticated, saleRouter);
+app.use('/api/invoice', isAuthenticated, invoiceRouter);
 app.use('/api/user', userRouter);
