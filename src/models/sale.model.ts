@@ -10,7 +10,7 @@ export interface IOrderedProduct {
   subtotal: number;
 }
 export interface ISale {
-  clientInfo: IClient;
+  clientId: IClient;
   deliveryCity: string;
   orderedProducts: IOrderedProduct[];
   salesChannel: string;
@@ -31,7 +31,7 @@ orderedProductsSchema.plugin(mongooseAutoPopulate);
 
 const saleSchema = new Schema<ISale>(
   {
-    clientInfo: {
+    clientId: {
       type: Schema.Types.ObjectId,
       ref: 'Client',
       required: true,

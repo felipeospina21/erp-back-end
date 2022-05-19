@@ -13,7 +13,8 @@ export const app: Express = express();
 app.use(
   cors({
     origin: 'http://localhost:3000',
-    allowedHeaders: ['Access-Control-Allow-Headers', 'Set-Cookie'],
+    methods: ['GET', 'PUT', 'POST', 'DELETE'],
+    allowedHeaders: ['Access-Control-Allow-Headers', 'Set-Cookie', 'Content-Type'],
     credentials: true,
   })
 );
