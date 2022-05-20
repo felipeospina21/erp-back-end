@@ -28,7 +28,7 @@ export async function loginUser(req: Request, res: Response) {
     return;
   }
 
-  res.cookie('session-token', token, { httpOnly: true });
+  res.cookie('session-token', token, { httpOnly: true, sameSite: 'none', secure: true });
   res.status(200).json({ message: 'success', user: { isLoggedin: true, email } });
 }
 
