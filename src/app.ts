@@ -12,7 +12,7 @@ export const app: Express = express();
 // middlewares
 app.use(
   cors({
-    origin: 'http://localhost:3000',
+    origin: ['http://localhost:3000', 'https://erp-dlt.vercel.app', 'https://erp-felipeospina21.vercel.app'],
     methods: ['GET', 'PUT', 'POST', 'DELETE'],
     allowedHeaders: ['Access-Control-Allow-Headers', 'Set-Cookie', 'Content-Type'],
     credentials: true,
