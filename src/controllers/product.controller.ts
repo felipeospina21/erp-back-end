@@ -21,20 +21,20 @@ export function getProductById(req: Request, res: Response) {
 }
 
 export function deleteProductById(req: Request, res: Response) {
-  const { _id: id } = req.body;
+  const { _id: id } = req.body as IProduct;
   const deletedProduct = deletetById(Product, id);
   controllerResponse(deletedProduct, 200, 400, res);
 }
 
 export function updateProductById(req: Request, res: Response) {
-  const { _id: id, alias, name, price, stock } = req.body;
-  const update = { alias, name, price: Number(price), stock: Number(stock) };
+  const { _id: id, category, name, price, stock } = req.body as IProduct;
+  const update = { category, name, price: Number(price), stock: Number(stock) };
   const updatedProduct = updateById(Product, id, update);
   controllerResponse(updatedProduct, 200, 400, res);
 }
 
 export function updateProductStock(req: Request, res: Response) {
-  const { _id: id, stock } = req.body;
+  const { _id: id, stock } = req.body as IProduct;
   const update = { stock: Number(stock) };
   const updatedProduct = updateById(Product, id, update);
   controllerResponse(updatedProduct, 200, 400, res);

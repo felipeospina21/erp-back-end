@@ -1,7 +1,10 @@
 import { Schema, model } from 'mongoose';
+import { ICategory } from './category.model';
+import mongooseAutoPopulate from 'mongoose-autopopulate';
 
 export interface IProduct {
-  alias: string;
+  _id: string;
+  category: ICategory;
   name: string;
   price: number;
   stock: number;
@@ -10,7 +13,7 @@ export interface IProduct {
 
 const productSchema = new Schema<IProduct>(
   {
-    alias: { type: String, required: true, unique: true },
+    category: { type: Schema.Types.ObjectId, ref: 'Category', required: true, autopopulate: { select: 'name -_id' } },
     name: { type: String, required: true },
     price: { type: Number, required: true },
     stock: { type: Number, required: true },
@@ -20,5 +23,7 @@ const productSchema = new Schema<IProduct>(
     timestamps: true,
   }
 );
+
+productSchema.plugin(mongooseAutoPopulate);
 
 export const Product = model<IProduct>('Product', productSchema);
