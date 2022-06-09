@@ -14,9 +14,9 @@ export async function createNewElement(Schema: Model<any>, payload: ModelsTypes)
   }
 }
 
-export async function findAll(Schema: Model<any>) {
+export async function findAll(Schema: Model<any>, sortBy?: string) {
   try {
-    const elementsList = await Schema.find();
+    const elementsList = await Schema.find().sort(sortBy);
     return elementsList;
   } catch (error) {
     Logger.error(error);

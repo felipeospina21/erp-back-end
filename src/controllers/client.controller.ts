@@ -10,7 +10,7 @@ export function createClient(req: Request, res: Response) {
 }
 
 export function getClients(req: Request, res: Response) {
-  const clients = findAll(Client);
+  const clients = findAll(Client, 'name');
   controllerResponse(clients, 200, 400, res);
 }
 

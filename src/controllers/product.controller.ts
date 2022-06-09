@@ -10,7 +10,7 @@ export function createProduct(req: Request, res: Response) {
 }
 
 export function getProducts(req: Request, res: Response) {
-  const products = findAll(Product);
+  const products = findAll(Product, 'name');
   controllerResponse(products, 200, 400, res);
 }
 
