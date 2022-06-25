@@ -27,8 +27,8 @@ export function deleteProductById(req: Request, res: Response) {
 }
 
 export function updateProductById(req: Request, res: Response) {
-  const { _id: id, category, name, price, stock } = req.body as IProduct;
-  const update = { category, name, price: Number(price), stock: Number(stock) };
+  const { _id: id, category, name, price, stock, image } = req.body as IProduct;
+  const update = { category, name, image, price: Number(price), stock: Number(stock) };
   const updatedProduct = updateById(Product, id, update);
   controllerResponse(updatedProduct, 200, 400, res);
 }

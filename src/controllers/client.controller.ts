@@ -4,6 +4,10 @@ import { createNewElement, deletetById, findAll, findById, updateById } from '..
 import { controllerResponse } from '../utils';
 
 export function createClient(req: Request, res: Response) {
+  const { retailer } = req.body;
+  if (retailer === 'si') req.body.retailer = true;
+  if (retailer === 'no') req.body.retailer = false;
+
   const payload: IClient = req.body;
   const newClient = createNewElement(Client, payload);
   controllerResponse(newClient, 201, 400, res);

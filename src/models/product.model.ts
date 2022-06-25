@@ -13,7 +13,7 @@ export interface IProduct {
 
 const productSchema = new Schema<IProduct>(
   {
-    category: { type: Schema.Types.ObjectId, ref: 'Category', required: true, autopopulate: { select: 'name -_id' } },
+    category: { type: Schema.Types.ObjectId, ref: 'Category', required: true, autopopulate: { select: 'name' } },
     name: { type: String, unique: true, required: true },
     price: { type: Number, required: true },
     stock: { type: Number, required: true },
