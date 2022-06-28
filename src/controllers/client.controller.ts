@@ -4,10 +4,6 @@ import { createNewElement, deletetById, findAll, findById, updateById } from '..
 import { controllerResponse } from '../utils';
 
 export function createClient(req: Request, res: Response) {
-  const { retailer } = req.body;
-  if (retailer === 'si') req.body.retailer = true;
-  if (retailer === 'no') req.body.retailer = false;
-
   const payload: IClient = req.body;
   const newClient = createNewElement(Client, payload);
   controllerResponse(newClient, 201, 400, res);
@@ -31,7 +27,20 @@ export function deleteClientById(req: Request, res: Response) {
 }
 
 export function updateClientById(req: Request, res: Response) {
-  const { _id: id, update } = req.body;
+  const {
+    _id: id,
+    addres1,
+    addres2,
+    city,
+    department,
+    discount,
+    email,
+    name,
+    paymentTerm,
+    retailer,
+  } = req.body as IClient;
+  console.log(req.body);
+  const update = { addres1, addres2, city, department, discount, email, name, paymentTerm, retailer };
   const updatedClient = updateById(Client, id, update);
   controllerResponse(updatedClient, 200, 400, res);
 }

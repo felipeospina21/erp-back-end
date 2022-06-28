@@ -1,6 +1,7 @@
 import { Schema, model } from 'mongoose';
 
 export interface IClient {
+  _id: string;
   addres1: string;
   addres2?: string;
   city: string;
