@@ -8,7 +8,7 @@ export async function generateToken(reqPassword: string, userPassword: string, u
     return;
   } else {
     return jwt.sign({ id: userId, email: userEmail }, process.env.SECRET_TOKEN_KEY as Secret, {
-      expiresIn: '2h',
+      expiresIn: '12h',
     });
   }
 }

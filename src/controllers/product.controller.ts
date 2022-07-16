@@ -39,3 +39,25 @@ export function updateProductStock(req: Request, res: Response) {
   const updatedProduct = updateById(Product, id, update);
   controllerResponse(updatedProduct, 200, 400, res);
 }
+
+export async function updateProductStockInBatch(req: Request, res: Response) {
+  const body = req.body;
+  const newStockPromises = [];
+  for (const key in body) {
+    const { stock: currentStock } = await findById(Product, key, 'stock -_id -category');
+    const newStock = Number(currentStock) + Number(body[key]);
+    newStockPromises.push(updateById(Product, key, { stock: newStock }));
+  }
+
+  try {
+    await Promise.all(newStockPromises);
+    res.status(200).json({ message: 'Productos actualizados' });
+  } catch (error) {
+    res.status(400).json({ message: 'Error al actualizar inventario' });
+  }
+
+  // const { _id: id, stock } = req.body as IProduct;
+  // const update = { stock: Number(stock) };
+  // const updatedProduct = updateById(Product, id, update);
+  // controllerResponse(updatedProduct, 200, 400, res);
+}

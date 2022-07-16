@@ -24,9 +24,9 @@ export async function findAll(Schema: Model<any>, sortBy?: string) {
   }
 }
 
-export async function findById(Schema: Model<any>, id: string) {
+export async function findById(Schema: Model<any>, id: string, field?: string) {
   try {
-    const element = await Schema.findById(id);
+    const element = await Schema.findById(id).select(field);
     return element;
   } catch (error) {
     Logger.error(error);
