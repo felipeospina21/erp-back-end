@@ -27,7 +27,19 @@ export function deleteClientById(req: Request, res: Response) {
 }
 
 export function updateClientById(req: Request, res: Response) {
-  const { _id: id, update } = req.body;
+  const {
+    _id: id,
+    addres1,
+    addres2,
+    city,
+    department,
+    discount,
+    email,
+    name,
+    paymentTerm,
+    retailer,
+  } = req.body as IClient;
+  const update = { addres1, addres2, city, department, discount, email, name, paymentTerm, retailer };
   const updatedClient = updateById(Client, id, update);
   controllerResponse(updatedClient, 200, 400, res);
 }

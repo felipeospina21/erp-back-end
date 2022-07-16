@@ -1,6 +1,7 @@
 import { Schema, model } from 'mongoose';
 
 export interface IClient {
+  _id: string;
   addres1: string;
   addres2?: string;
   city: string;
@@ -9,7 +10,10 @@ export interface IClient {
   email?: string;
   idNumber: string;
   idType: string;
-  name?: string;
+  name: string;
+  paymentTerm: 'contado' | '15' | '30' | '60';
+  retailer: boolean;
+  phone?: number;
 }
 
 const clientSchema = new Schema<IClient>(
@@ -23,6 +27,9 @@ const clientSchema = new Schema<IClient>(
     idNumber: { type: String, required: true, unique: true },
     idType: { type: String, required: true },
     name: { type: String, required: true },
+    paymentTerm: { type: String, required: true, enum: ['contado', '15', '30', '60'] },
+    retailer: { type: Boolean, required: true },
+    phone: { type: Number },
   },
   {
     timestamps: true,

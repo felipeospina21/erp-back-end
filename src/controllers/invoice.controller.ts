@@ -10,3 +10,9 @@ export async function updateInvoice(req: Request, res: Response) {
   const updateInvoice = updateById(Invoice, id, { count: count + 1 });
   controllerResponse(updateInvoice, 200, 400, res);
 }
+
+export function getInvoiceCountById(req: Request, res: Response) {
+  const { id } = req.params;
+  const invoice = findById(Invoice, id);
+  controllerResponse(invoice, 200, 400, res);
+}

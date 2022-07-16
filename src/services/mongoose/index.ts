@@ -1,8 +1,8 @@
-import type { IClient, IProduct, ISale, IUser } from '../../models';
+import type { IClient, IProduct, ISale, IUser, IWithholdingTax } from '../../models';
 import { Model } from 'mongoose';
 import Logger from '../../utils/logger';
 
-export type ModelsTypes = IClient | IProduct | ISale | IUser;
+export type ModelsTypes = IClient | IProduct | ISale | IUser | IWithholdingTax;
 
 export async function createNewElement(Schema: Model<any>, payload: ModelsTypes) {
   try {
@@ -24,10 +24,9 @@ export async function findAll(Schema: Model<any>, sortBy?: string) {
   }
 }
 
-export async function findById(Schema: Model<any>, id: string) {
+export async function findById(Schema: Model<any>, id: string, field?: string) {
   try {
-    const element = await Schema.findById(id);
-    console.log(element);
+    const element = await Schema.findById(id).select(field);
     return element;
   } catch (error) {
     Logger.error(error);

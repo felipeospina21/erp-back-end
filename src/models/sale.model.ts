@@ -5,26 +5,26 @@ import mongooseAutoPopulate from 'mongoose-autopopulate';
 export interface IOrderedProduct {
   item: IProduct;
   discount: number;
-  listId: string;
   quantity: number;
-  subtotal: number;
+  rowTotal: number;
 }
 export interface ISale {
   clientId: IClient;
   deliveryCity: string;
   orderedProducts: IOrderedProduct[];
-  salesChannel: string;
+  paymentTerm: number;
   subtotal: number;
   tax: number;
   total: number;
+  withholdingTax?: number;
+  invoiceRef: string;
 }
 
 const orderedProductsSchema = new Schema<IOrderedProduct>({
-  item: { type: Schema.Types.ObjectId, ref: 'Product', required: true, autopopulate: true },
+  item: { type: Schema.Types.ObjectId, ref: 'Product', required: true, autopopulate: { select: '-image' } },
   discount: { type: Number, required: true },
-  listId: { type: String, required: true },
   quantity: { type: Number, required: true },
-  subtotal: { type: Number, required: true },
+  rowTotal: { type: Number, required: true },
 });
 
 orderedProductsSchema.plugin(mongooseAutoPopulate);
@@ -35,7 +35,7 @@ const saleSchema = new Schema<ISale>(
       type: Schema.Types.ObjectId,
       ref: 'Client',
       required: true,
-      autopopulate: true,
+      autopopulate: { select: 'name' },
     },
     deliveryCity: {
       type: String,
@@ -45,8 +45,8 @@ const saleSchema = new Schema<ISale>(
       type: [orderedProductsSchema],
       required: true,
     },
-    salesChannel: {
-      type: String,
+    paymentTerm: {
+      type: Number,
       required: true,
     },
     subtotal: {
@@ -61,6 +61,10 @@ const saleSchema = new Schema<ISale>(
       type: Number,
       required: true,
     },
+    withholdingTax: {
+      type: Number,
+    },
+    invoiceRef: { type: String, required: true },
   },
   {
     timestamps: true,
