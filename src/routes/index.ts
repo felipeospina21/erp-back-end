@@ -4,3 +4,4 @@ export * from './sale.routes';
 export * from './user.routes';
 export * from './invoice.routes';
 export * from './category.routes';
+export * from './withholdingTax.routes';

@@ -1,8 +1,8 @@
-import type { IClient, IProduct, ISale, IUser } from '../../models';
+import type { IClient, IProduct, ISale, IUser, IWithholdingTax } from '../../models';
 import { Model } from 'mongoose';
 import Logger from '../../utils/logger';
 
-export type ModelsTypes = IClient | IProduct | ISale | IUser;
+export type ModelsTypes = IClient | IProduct | ISale | IUser | IWithholdingTax;
 
 export async function createNewElement(Schema: Model<any>, payload: ModelsTypes) {
   try {

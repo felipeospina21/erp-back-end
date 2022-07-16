@@ -16,6 +16,7 @@ export interface ISale {
   subtotal: number;
   tax: number;
   total: number;
+  withholdingTax?: number;
 }
 
 const orderedProductsSchema = new Schema<IOrderedProduct>({
@@ -58,6 +59,9 @@ const saleSchema = new Schema<ISale>(
     total: {
       type: Number,
       required: true,
+    },
+    withholdingTax: {
+      type: Number,
     },
   },
   {
