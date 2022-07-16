@@ -13,6 +13,7 @@ export interface IClient {
   name: string;
   paymentTerm: 'contado' | '15' | '30' | '60';
   retailer: boolean;
+  phone?: number;
 }
 
 const clientSchema = new Schema<IClient>(
@@ -28,6 +29,7 @@ const clientSchema = new Schema<IClient>(
     name: { type: String, required: true },
     paymentTerm: { type: String, required: true, enum: ['contado', '15', '30', '60'] },
     retailer: { type: Boolean, required: true },
+    phone: { type: Number },
   },
   {
     timestamps: true,

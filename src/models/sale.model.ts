@@ -17,6 +17,7 @@ export interface ISale {
   tax: number;
   total: number;
   withholdingTax?: number;
+  invoiceRef: string;
 }
 
 const orderedProductsSchema = new Schema<IOrderedProduct>({
@@ -63,6 +64,7 @@ const saleSchema = new Schema<ISale>(
     withholdingTax: {
       type: Number,
     },
+    invoiceRef: { type: String, required: true },
   },
   {
     timestamps: true,
