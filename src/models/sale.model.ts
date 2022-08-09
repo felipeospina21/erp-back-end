@@ -17,7 +17,17 @@ export interface ISale {
   tax: number;
   total: number;
   withholdingTax?: number;
-  invoiceRef: string;
+  invoiceRef?: string;
+  saleRequestRef: string;
+  status:
+    | 'producción'
+    | 'alistamiento'
+    | 'despachado'
+    | 'entregado'
+    | 'facturado'
+    | 'en cartera'
+    | 'pagado'
+    | 'anulado';
 }
 
 const orderedProductsSchema = new Schema<IOrderedProduct>({
@@ -65,6 +75,8 @@ const saleSchema = new Schema<ISale>(
       type: Number,
     },
     invoiceRef: { type: String, required: true },
+    saleRequestRef: { type: String, required: true },
+    status: { type: String, required: true },
   },
   {
     timestamps: true,
