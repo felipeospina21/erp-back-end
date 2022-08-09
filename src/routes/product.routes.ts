@@ -5,8 +5,9 @@ import {
   getProducts,
   deleteProductById,
   updateProductById,
-  updateProductStock,
+  updateProductStockAvailable,
   updateProductStockInBatch,
+  updateProductStockReserved,
 } from '../controllers';
 import { formData } from '../middlewares';
 
@@ -17,5 +18,6 @@ productRouter.get('/:id', getProductById);
 productRouter.post('/', formData, createProduct);
 productRouter.delete('/', deleteProductById);
 productRouter.put('/', formData, updateProductById);
-productRouter.put('/updateStock', updateProductStock);
+productRouter.put('/updateStockAvailable', updateProductStockAvailable);
+productRouter.put('/updateStockReserved', updateProductStockReserved);
 productRouter.put('/updateStockInBatch', updateProductStockInBatch);

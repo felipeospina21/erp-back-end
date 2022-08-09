@@ -27,26 +27,32 @@ export function deleteProductById(req: Request, res: Response) {
 }
 
 export function updateProductById(req: Request, res: Response) {
-  const { _id: id, category, name, price, stock, image } = req.body as IProduct;
-  const update = { category, name, image, price: Number(price), stock: Number(stock) };
+  const { _id: id, category, name, price, stockAvailable, image } = req.body as IProduct;
+  const update = { category, name, image, price: Number(price), stockAvailable: Number(stockAvailable) };
   const updatedProduct = updateById(Product, id, update);
   controllerResponse(updatedProduct, 200, 400, res);
 }
 
-export function updateProductStock(req: Request, res: Response) {
-  const { _id: id, stock } = req.body as IProduct;
-  const update = { stock: Number(stock) };
+export function updateProductStockAvailable(req: Request, res: Response) {
+  const { _id: id, stockAvailable } = req.body as IProduct;
+  const update = { stockAvailable: Number(stockAvailable) };
   const updatedProduct = updateById(Product, id, update);
   controllerResponse(updatedProduct, 200, 400, res);
 }
 
+export function updateProductStockReserved(req: Request, res: Response) {
+  const { _id: id, stockReserved } = req.body as IProduct;
+  const update = { stockReserved: Number(stockReserved) };
+  const updatedProduct = updateById(Product, id, update);
+  controllerResponse(updatedProduct, 200, 400, res);
+}
 export async function updateProductStockInBatch(req: Request, res: Response) {
   const body = req.body;
   const newStockPromises = [];
   for (const key in body) {
-    const { stock: currentStock } = await findById(Product, key, 'stock -_id -category');
+    const { stockAvailable: currentStock } = await findById(Product, key, 'stock -_id -category');
     const newStock = Number(currentStock) + Number(body[key]);
-    newStockPromises.push(updateById(Product, key, { stock: newStock }));
+    newStockPromises.push(updateById(Product, key, { stockAvailable: newStock }));
   }
 
   try {
@@ -55,9 +61,4 @@ export async function updateProductStockInBatch(req: Request, res: Response) {
   } catch (error) {
     res.status(400).json({ message: 'Error al actualizar inventario' });
   }
-
-  // const { _id: id, stock } = req.body as IProduct;
-  // const update = { stock: Number(stock) };
-  // const updatedProduct = updateById(Product, id, update);
-  // controllerResponse(updatedProduct, 200, 400, res);
 }
