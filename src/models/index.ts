@@ -5,3 +5,4 @@ export * from './user.model';
 export * from './invoice.model';
 export * from './category.model';
 export * from './withholdingTax.model';
+export * from './consecutive.model';
