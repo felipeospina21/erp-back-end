@@ -40,9 +40,24 @@ export function updateProductStockAvailable(req: Request, res: Response) {
   controllerResponse(updatedProduct, 200, 400, res);
 }
 
-export function updateProductStockReserved(req: Request, res: Response) {
-  const { _id: id, stockReserved } = req.body as IProduct;
-  const update = { stockReserved: Number(stockReserved) };
+interface UpdateProductStockReserved extends IProduct {
+  method: 'add' | 'substract';
+}
+export async function updateProductStockReserved(req: Request, res: Response) {
+  const { _id: id, stockReserved, method } = req.body as UpdateProductStockReserved;
+  let update = await findById(Product, id, 'stockReserved -_id -category');
+
+  switch (method) {
+    case 'add':
+      update = { stockReserved: Number(update.stockReserved) + Number(stockReserved) };
+      break;
+    case 'substract':
+      update = { stockReserved: update.stockReserved - Number(stockReserved) };
+      break;
+    default:
+      break;
+  }
+
   const updatedProduct = updateById(Product, id, update);
   controllerResponse(updatedProduct, 200, 400, res);
 }

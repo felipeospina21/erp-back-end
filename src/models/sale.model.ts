@@ -74,7 +74,7 @@ const saleSchema = new Schema<ISale>(
     withholdingTax: {
       type: Number,
     },
-    invoiceRef: { type: String, required: true },
+    invoiceRef: { type: String },
     saleRequestRef: { type: String, required: true },
     status: { type: String, required: true },
   },
