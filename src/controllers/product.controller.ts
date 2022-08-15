@@ -33,9 +33,19 @@ export function updateProductById(req: Request, res: Response) {
   controllerResponse(updatedProduct, 200, 400, res);
 }
 
-export function updateProductStockAvailable(req: Request, res: Response) {
-  const { _id: id, stockAvailable } = req.body as IProduct;
-  const update = { stockAvailable: Number(stockAvailable) };
+interface UpdateProductStockAvailable extends IProduct {
+  quantity: number;
+}
+export async function updateProductStockAvailable(req: Request, res: Response) {
+  const { _id: id, quantity } = req.body as UpdateProductStockAvailable;
+
+  const { stockAvailable: currentStock } = await findById(Product, id, 'stockAvailable -_id -category');
+  let update;
+  if (currentStock >= quantity) {
+    update = { stockAvailable: currentStock - quantity };
+  } else {
+    update = { stockAvailable: 0 };
+  }
   const updatedProduct = updateById(Product, id, update);
   controllerResponse(updatedProduct, 200, 400, res);
 }
@@ -65,7 +75,7 @@ export async function updateProductStockInBatch(req: Request, res: Response) {
   const body = req.body;
   const newStockPromises = [];
   for (const key in body) {
-    const { stockAvailable: currentStock } = await findById(Product, key, 'stock -_id -category');
+    const { stockAvailable: currentStock } = await findById(Product, key, 'stockAvailable -_id -category');
     const newStock = Number(currentStock) + Number(body[key]);
     newStockPromises.push(updateById(Product, key, { stockAvailable: newStock }));
   }
