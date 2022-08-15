@@ -27,7 +27,8 @@ export interface ISale {
     | 'facturado'
     | 'en cartera'
     | 'pagado'
-    | 'anulado';
+    | 'anulado'
+    | '';
 }
 
 const orderedProductsSchema = new Schema<IOrderedProduct>({
