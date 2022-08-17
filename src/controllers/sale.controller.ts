@@ -20,9 +20,9 @@ export function getSaleById(req: Request, res: Response) {
   controllerResponse(sale, 200, 400, res);
 }
 
-export async function deleteSaleById(req: Request, res: Response) {
-  const { _id: id } = req.body;
-  const { orderedProducts }: ISale = await deletetById(Sale, id);
+export async function cancelSaleById(req: Request, res: Response) {
+  const { id } = req.params;
+  const { orderedProducts }: ISale = await updateById(Sale, id, { status: 'anulado' });
 
   for (const { item, quantity } of orderedProducts) {
     const { stockAvailable: currentAvailable, stockReserved: currentReserved } = await findById(
@@ -36,5 +36,5 @@ export async function deleteSaleById(req: Request, res: Response) {
     });
   }
 
-  controllerResponse(Promise.resolve({ message: 'sale deleted' }), 200, 400, res);
+  controllerResponse(Promise.resolve({ message: 'sale canceled' }), 200, 400, res);
 }
