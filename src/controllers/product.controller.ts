@@ -33,7 +33,7 @@ export function updateProductById(req: Request, res: Response) {
   controllerResponse(updatedProduct, 200, 400, res);
 }
 
-interface UpdateProductStockAvailable extends IProduct {
+export interface UpdateProductStockAvailable extends IProduct {
   quantity: number;
 }
 export async function updateProductStockAvailable(req: Request, res: Response) {
