@@ -8,7 +8,14 @@ export interface IOrderedProduct {
   quantity: number;
   rowTotal: number;
 }
+
+export interface IDiscount {
+  concept: string;
+  value: number;
+}
+
 export interface ISale {
+  _id: string;
   clientId: IClient;
   deliveryCity: string;
   orderedProducts: IOrderedProduct[];
@@ -29,6 +36,8 @@ export interface ISale {
     | 'pagado'
     | 'anulado'
     | '';
+  discounts?: IDiscount[];
+  creditNotes?: IDiscount[];
 }
 
 const orderedProductsSchema = new Schema<IOrderedProduct>({
@@ -38,7 +47,13 @@ const orderedProductsSchema = new Schema<IOrderedProduct>({
   rowTotal: { type: Number, required: true },
 });
 
+const discountsSchema = new Schema<IDiscount>({
+  concept: { type: String, required: true },
+  value: { type: Number, required: true },
+});
+
 orderedProductsSchema.plugin(mongooseAutoPopulate);
+discountsSchema.plugin(mongooseAutoPopulate);
 
 const saleSchema = new Schema<ISale>(
   {
@@ -78,6 +93,8 @@ const saleSchema = new Schema<ISale>(
     invoiceRef: { type: String },
     saleRequestRef: { type: String, required: true },
     status: { type: String, required: true },
+    discounts: { type: [discountsSchema] },
+    creditNotes: { type: [discountsSchema] },
   },
   {
     timestamps: true,

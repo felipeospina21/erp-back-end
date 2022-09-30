@@ -1,6 +1,6 @@
 import { Sale, ISale, Product } from '../models';
 import { Request, Response } from 'express';
-import { createNewElement, deletetById, findAll, findById, updateById } from '../services/mongoose';
+import { createNewElement, findAll, findById, updateById } from '../services/mongoose';
 import { controllerResponse } from '../utils';
 
 export function createSale(req: Request, res: Response) {
@@ -17,6 +17,22 @@ export function getSales(req: Request, res: Response) {
 export function getSaleById(req: Request, res: Response) {
   const { id } = req.params;
   const sale = findById(Sale, id);
+  controllerResponse(sale, 200, 400, res);
+}
+
+export function updateSaleStatus(req: Request, res: Response) {
+  const { id } = req.params;
+  console.log(req.body);
+  const { status, invoiceRef, discounts, creditNotes } = req.body as ISale;
+  const sale = updateById(Sale, id, { status, invoiceRef, discounts, creditNotes });
+  controllerResponse(sale, 200, 400, res);
+}
+
+export function createInvoice(req: Request, res: Response) {
+  const { id } = req.params;
+  const { invoiceRef, discounts, creditNotes } = req.body as ISale;
+
+  const sale = updateById(Sale, id, { invoiceRef, discounts, creditNotes });
   controllerResponse(sale, 200, 400, res);
 }
 

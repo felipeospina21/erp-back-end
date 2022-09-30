@@ -9,7 +9,7 @@ interface OrderedProduct extends Omit<IOrderedProduct, 'item'> {
 interface SaleBody extends Omit<ISale, 'orderedProducts'> {
   orderedProducts: OrderedProduct[];
 }
-export async function updateSaleStatus(req: Request, res: Response, next: NextFunction) {
+export async function updateStatusOnSale(req: Request, res: Response, next: NextFunction) {
   const { orderedProducts } = req.body as SaleBody;
   try {
     for await (const { item, quantity } of orderedProducts) {

@@ -1,11 +1,12 @@
 import { Router } from 'express';
-import { createSale, getSaleById, getSales, cancelSaleById } from '../controllers';
+import { createSale, getSaleById, getSales, cancelSaleById, updateSaleStatus } from '../controllers';
 import { transformPaymentTerm } from '../middlewares';
-import { updateSaleStatus } from '../middlewares/updateSaleStatus/updateSaleStatus';
+import { updateStatusOnSale } from '../middlewares/updateStatusOnSale/updateStatusOnSale';
 
 export const saleRouter: Router = Router();
 
 saleRouter.get('/', getSales);
 saleRouter.get('/:id', getSaleById);
 saleRouter.put('/cancelDoc/:id', cancelSaleById);
-saleRouter.post('/', transformPaymentTerm, updateSaleStatus, createSale);
+saleRouter.put('/updateStatus/:id', updateSaleStatus);
+saleRouter.post('/', transformPaymentTerm, updateStatusOnSale, createSale);
