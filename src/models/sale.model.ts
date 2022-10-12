@@ -10,6 +10,7 @@ export interface IOrderedProduct {
 }
 
 export interface IDiscount {
+  id: number;
   concept: string;
   value: number;
 }
