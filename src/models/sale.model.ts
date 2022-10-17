@@ -10,6 +10,7 @@ export interface IOrderedProduct {
 }
 
 export interface IDiscount {
+  id: number;
   concept: string;
   value: number;
 }
@@ -90,8 +91,8 @@ const saleSchema = new Schema<ISale>(
     withholdingTax: {
       type: Number,
     },
-    invoiceRef: { type: String },
-    saleRequestRef: { type: String, required: true },
+    invoiceRef: { type: String, unique: true },
+    saleRequestRef: { type: String, required: true, unique: true },
     status: { type: String, required: true },
     discounts: { type: [discountsSchema] },
     creditNotes: { type: [discountsSchema] },
