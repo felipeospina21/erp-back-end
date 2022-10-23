@@ -2,8 +2,12 @@ import { Schema, model } from 'mongoose';
 import bcrypt from 'bcrypt';
 
 export interface IUser {
+  _id: string;
   email: string;
   password: string;
+  image?: string;
+  firstName?: string;
+  lastName?: string;
 }
 
 const UserSchema = new Schema<IUser>(
@@ -22,6 +26,9 @@ const UserSchema = new Schema<IUser>(
       trim: true,
       minLength: [8, 'password should have a minimum of 8 characters'],
     },
+    image: { type: String },
+    firstName: { type: String },
+    lastName: { type: String },
   },
   {
     timestamps: true,

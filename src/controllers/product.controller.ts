@@ -27,26 +27,57 @@ export function deleteProductById(req: Request, res: Response) {
 }
 
 export function updateProductById(req: Request, res: Response) {
-  const { _id: id, category, name, price, stock, image } = req.body as IProduct;
-  const update = { category, name, image, price: Number(price), stock: Number(stock) };
+  const { _id: id, category, name, price, stockAvailable, image } = req.body as IProduct;
+  const update = { category, name, image, price: Number(price), stockAvailable: Number(stockAvailable) };
   const updatedProduct = updateById(Product, id, update);
   controllerResponse(updatedProduct, 200, 400, res);
 }
 
-export function updateProductStock(req: Request, res: Response) {
-  const { _id: id, stock } = req.body as IProduct;
-  const update = { stock: Number(stock) };
+export interface UpdateProductStockAvailable extends IProduct {
+  quantity: number;
+}
+export async function updateProductStockAvailable(req: Request, res: Response) {
+  const { _id: id, quantity } = req.body as UpdateProductStockAvailable;
+
+  const { stockAvailable: currentStock } = await findById(Product, id, 'stockAvailable -_id -category');
+  let update;
+  if (currentStock >= quantity) {
+    update = { stockAvailable: currentStock - quantity };
+  } else {
+    update = { stockAvailable: 0 };
+  }
   const updatedProduct = updateById(Product, id, update);
   controllerResponse(updatedProduct, 200, 400, res);
 }
 
+interface UpdateProductStockReserved extends IProduct {
+  method: 'add' | 'substract';
+}
+export async function updateProductStockReserved(req: Request, res: Response) {
+  const { _id: id, stockReserved, method } = req.body as UpdateProductStockReserved;
+  let update = await findById(Product, id, 'stockReserved -_id -category');
+
+  switch (method) {
+    case 'add':
+      update = { stockReserved: Number(update.stockReserved) + Number(stockReserved) };
+      break;
+    case 'substract':
+      update = { stockReserved: update.stockReserved - Number(stockReserved) };
+      break;
+    default:
+      break;
+  }
+
+  const updatedProduct = updateById(Product, id, update);
+  controllerResponse(updatedProduct, 200, 400, res);
+}
 export async function updateProductStockInBatch(req: Request, res: Response) {
   const body = req.body;
   const newStockPromises = [];
   for (const key in body) {
-    const { stock: currentStock } = await findById(Product, key, 'stock -_id -category');
+    const { stockAvailable: currentStock } = await findById(Product, key, 'stockAvailable -_id -category');
     const newStock = Number(currentStock) + Number(body[key]);
-    newStockPromises.push(updateById(Product, key, { stock: newStock }));
+    newStockPromises.push(updateById(Product, key, { stockAvailable: newStock }));
   }
 
   try {
@@ -55,9 +86,4 @@ export async function updateProductStockInBatch(req: Request, res: Response) {
   } catch (error) {
     res.status(400).json({ message: 'Error al actualizar inventario' });
   }
-
-  // const { _id: id, stock } = req.body as IProduct;
-  // const update = { stock: Number(stock) };
-  // const updatedProduct = updateById(Product, id, update);
-  // controllerResponse(updatedProduct, 200, 400, res);
 }
