@@ -1,0 +1,10 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.withholdingTaxRouter = void 0;
+const express_1 = require("express");
+const controllers_1 = require("../controllers");
+exports.withholdingTaxRouter = (0, express_1.Router)();
+exports.withholdingTaxRouter.post('/', controllers_1.createWithholdingTax);
+exports.withholdingTaxRouter.put('/', controllers_1.updateWithholdingTax);
+exports.withholdingTaxRouter.get('/', controllers_1.getWithholdingTaxes);
+exports.withholdingTaxRouter.get('/:id', controllers_1.getWithholdingTaxById);

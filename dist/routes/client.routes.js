@@ -1,0 +1,12 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.clientRouter = void 0;
+const express_1 = require("express");
+const controllers_1 = require("../controllers");
+const transformRetailer_1 = require("../middlewares/transformRetailer");
+exports.clientRouter = (0, express_1.Router)();
+exports.clientRouter.get('/', controllers_1.getClients);
+exports.clientRouter.get('/:id', controllers_1.getClientById);
+exports.clientRouter.post('/', transformRetailer_1.transformRetailer, controllers_1.createClient);
+exports.clientRouter.delete('/', controllers_1.deleteClientById);
+exports.clientRouter.put('/', transformRetailer_1.transformRetailer, controllers_1.updateClientById);
