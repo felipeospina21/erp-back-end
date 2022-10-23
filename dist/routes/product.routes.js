@@ -1,0 +1,15 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.productRouter = void 0;
+const express_1 = require("express");
+const controllers_1 = require("../controllers");
+const middlewares_1 = require("../middlewares");
+exports.productRouter = (0, express_1.Router)();
+exports.productRouter.get('/', controllers_1.getProducts);
+exports.productRouter.get('/:id', controllers_1.getProductById);
+exports.productRouter.post('/', middlewares_1.formData, controllers_1.createProduct);
+exports.productRouter.delete('/', controllers_1.deleteProductById);
+exports.productRouter.put('/', middlewares_1.formData, controllers_1.updateProductById);
+exports.productRouter.put('/updateStockAvailable', controllers_1.updateProductStockAvailable);
+exports.productRouter.put('/updateStockReserved', controllers_1.updateProductStockReserved);
+exports.productRouter.put('/updateStockInBatch', controllers_1.updateProductStockInBatch);
