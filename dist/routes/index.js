@@ -22,3 +22,4 @@ __exportStar(require("./invoice.routes"), exports);
 __exportStar(require("./category.routes"), exports);
 __exportStar(require("./withholdingTax.routes"), exports);
 __exportStar(require("./consecutive.routes"), exports);
+__exportStar(require("./root.routes"), exports);
