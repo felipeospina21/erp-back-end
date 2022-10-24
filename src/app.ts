@@ -14,6 +14,7 @@ import {
   categoryRouter,
   withholdingTaxRouter,
   consecutiveRouter,
+  homeRouter,
 } from './routes';
 
 export const app: Express = express();
@@ -40,6 +41,7 @@ app.use(cookieParser());
 app.use(xss());
 
 // routes
+app.use('/', homeRouter);
 app.use('/api/products', isAuthenticated, productRouter);
 app.use('/api/clients', isAuthenticated, clientRouter);
 app.use('/api/sales', isAuthenticated, saleRouter);

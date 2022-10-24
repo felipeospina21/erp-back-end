@@ -31,6 +31,7 @@ exports.app.use((0, cookie_parser_1.default)());
 // security
 exports.app.use((0, xss_clean_1.default)());
 // routes
+exports.app.use('/', routes_1.homeRouter);
 exports.app.use('/api/products', middlewares_1.isAuthenticated, routes_1.productRouter);
 exports.app.use('/api/clients', middlewares_1.isAuthenticated, routes_1.clientRouter);
 exports.app.use('/api/sales', middlewares_1.isAuthenticated, routes_1.saleRouter);

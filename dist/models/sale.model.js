@@ -52,7 +52,7 @@ const saleSchema = new mongoose_1.Schema({
     withholdingTax: {
         type: Number,
     },
-    invoiceRef: { type: String, unique: true },
+    invoiceRef: { type: String },
     saleRequestRef: { type: String, required: true, unique: true },
     status: { type: String, required: true },
     discounts: { type: [discountsSchema] },

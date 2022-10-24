@@ -6,3 +6,4 @@ export * from './invoice.routes';
 export * from './category.routes';
 export * from './withholdingTax.routes';
 export * from './consecutive.routes';
+export * from './root.routes';
